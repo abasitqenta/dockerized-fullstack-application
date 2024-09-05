@@ -1,17 +1,21 @@
-version: "3.8"  # Use a more recent version
+version: "3.8"
 
 services:
   app:
-    build: ./app
+    image: abj/app:latest  # Replace with the built image and tag
     ports:
       - "3000:3000"
-    restart: always
     volumes:
       - ./app:/usr/src/app
       - /usr/src/app/node_modules
-
+    deploy:
+      restart_policy:
+        condition: any  # Swarm restart policy
+    
   mongo:
     image: mongo
     ports:
       - "27017:27017"
-    restart: always
+    deploy:
+      restart_policy:
+        condition: any
